@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Jass 💗</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap');
+
+* {
+    box-sizing: border-box;
+}
+
+:root {
+    --pink: #ff77a8;
+    --deep: #d63384;
+    --light: #fff0f6;
+    --red: #ff477e;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    overflow-x: hidden;
+    font-family: 'Poppins', sans-serif;
+    color: #a51c59;
+    background: linear-gradient(135deg, #ffe4ef, #ffc4dc, #fff0f6);
+}
+
+button {
+    font-family: inherit;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.screen {
+    min-height: 100vh;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 24px 18px;
+    position: relative;
+    overflow: hidden;
+}
+
+.screen.active {
+    display: flex;
+    animation: appear .8s ease;
+}
+
+@keyframes appear {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Falling hearts */
+
+.falling-heart {
+    position: fixed;
+    top: -35px;
+    z-index: 1;
+    pointer-events: none;
+    animation: fall linear forwards;
+    opacity: .75;
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(115vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+h1, h2, p {
+    position: relative;
+    z-index: 2;
+}
+
+h1 {
+    font-family: 'Dancing Script', cursive;
+    font-size: clamp(42px, 10vw, 68px);
+    margin: 12px 0;
+    color: #d63384;
+}
+
+.subtitle {
+    font-size: 14px;
+    color: #a64b70;
+    line-height: 1.8;
+    max-width: 340px;
+}
+
+/* Couple illustration */
+
+.couple {
+    width: min(310px, 85vw);
+    margin: 4px 0 12px;
+    filter: drop-shadow(0 10px 18px #d6338420);
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-9px); }
+}
+
+.heart-button {
+    width: 105px;
+    height: 100px;
+    border: none;
+    background: #ff477e;
+    color: white;
+    font-size: 48px;
+    cursor: pointer;
+    margin-top: 22px;
+    clip-path: path("M52 96 C42 84 3 58 3 29 C3 0 39 -4 52 20 C65 -4 101 0 101 29 C101 58 62 84 52 96 Z");
+    filter: drop-shadow(0 5px 8px #d6338460);
+    animation: heartbeat 1.3s infinite;
+    position: relative;
+    z-index: 3;
+}
+
+@keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.09); }
+}
+
+/* Buttons */
+
+.btn {
+    border: none;
+    border-radius: 40px;
+    padding: 13px 27px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform .2s, box-shadow .2s;
+}
+
+.btn:hover {
+    transform: scale(1.05);
+}
+
+.primary {
+    color: white;
+    background: linear-gradient(135deg, #ff477e, #e83e8c);
+    box-shadow: 0 7px 20px #d6338430;
+}
+
+/* Card screen */
+
+.card {
+    background: rgba(255,255,255,.86);
+    width: min(360px, 92vw);
+    min-height: 290px;
+    padding: 30px 22px;
+    border-radius: 22px;
+    border: 2px solid white;
+    box-shadow: 0 12px 35px #c9185b25;
+    cursor: pointer;
+    transition: transform .3s;
+    position: relative;
+    z-index: 2;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card .bow {
+    font-size: 48px;
+}
+
+.card h2 {
+    font-family: 'Dancing Script', cursive;
+    font-size: 36px;
+    margin: 8px 0;
+}
+
+.card p {
+    font-size: 13px;
+    line-height: 1.8;
+}
+
+.tap {
+    color: #e83e8c;
+    font-weight: 600;
+    animation: blink 1.5s infinite;
+}
+
+@keyframes blink {
+    50% { opacity: .5; }
+}
+
+/* Letter */
+
+.letter {
+    width: min(480px, 94vw);
+    padding: 26px 23px;
+    background: #fffafc;
+    border-radius: 18px;
+    border: 2px solid #ffd1e1;
+    box-shadow: 0 12px 35px #c9185b20;
+    z-index: 2;
+    animation: letterOpen .8s ease;
+}
+
+@keyframes letterOpen {
+    from { opacity: 0; transform: scale(.85) rotate(-2deg); }
+    to { opacity: 1; transform: scale(1) rotate(0); }
+}
+
+.letter h2 {
+    font-family: 'Dancing Script', cursive;
+    font-size: 39px;
+    margin: 0 0 15px;
+}
+
+.message {
+    color: #774158;
+    font-size: 14px;
+    line-height: 1.95;
+    text-align: left;
+    white-space: pre-line;
+}
+
+.question {
+    font-family: 'Dancing Script', cursive;
+    font-size: 31px;
+    color: #d63384;
+    margin: 22px 0;
+    font-weight: 700;
+}
+
+.answer-area {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 18px;
+    flex-wrap: wrap;
+    min-height: 65px;
+    position: relative;
+    z-index: 5;
+}
+
+#yes {
+    font-size: 17px;
+    padding: 14px 38px;
+}
+
+#no {
+    background: #fff;
+    color: #d63384;
+    border: 2px solid #ffc0d7;
+    box-shadow: 0 5px 12px #d6338415;
+    z-index: 10;
+}
+
+/* Confetti */
+
+.confetti {
+    position: fixed;
+    top: -20px;
+    z-index: 100;
+    pointer-events: none;
+    animation: confettiFall 2.5s ease-in forwards;
+}
+
+@keyframes confettiFall {
+    0% { transform: translateY(0) rotate(0deg); }
+    100% { transform: translateY(110vh) rotate(800deg); }
+}
+
+/* Final screen */
+
+.final-heart {
+    font-size: 85px;
+    animation: heartbeat 1s infinite;
+}
+
+.footer {
+    font-size: 11px;
+    color: #b65b82;
+    margin-top: 22px;
+}
+
+@media(max-width: 380px) {
+    .letter { padding: 20px 17px; }
+    .message { font-size: 13px; }
+    .question { font-size: 28px; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- SCREEN 1: THE SURPRISE -->
+
+<section class="screen active" id="home">
+
+    <div style="font-size:30px">💗 ✨ 🎀 ✨ 💗</div>
+
+    <h1>Hey Jass...</h1>
+
+    <p class="subtitle">
+        Someone has a little surprise for you.<br>
+        And it's made with a whole lot of love. 💌
+    </p>
+
+    <!-- Original SVG illustration: a turbaned Sikh boy proposing -->
+    <svg class="couple" viewBox="0 0 320 260"
+         xmlns="http://www.w3.org/2000/svg">
+
+        <!-- Soft background -->
+        <circle cx="160" cy="128" r="108" fill="#ffd2e3"/>
+        <circle cx="160" cy="128" r="86" fill="#ffe9f1"/>
+
+        <!-- Floating hearts -->
+        <text x="40" y="85" font-size="23">💗</text>
+        <text x="252" y="85" font-size="20">💕</text>
+        <text x="52" y="160" font-size="15">✨</text>
+        <text x="250" y="160" font-size="18">✨</text>
+
+        <!-- Girl's hair -->
+        <ellipse cx="213" cy="103" rx="34" ry="42" fill="#493044"/>
+        <path d="M184 104 Q176 155 196 170 L232 165 Q251 132 242 97Z"
+              fill="#493044"/>
+
+        <!-- Girl's body -->
+        <path d="M188 159 Q212 144 238 159 L264 236
+                 Q216 252 177 236Z"
+              fill="#ff6e9f"/>
+
+        <!-- Girl's face -->
+        <ellipse cx="212" cy="108" rx="28" ry="33" fill="#eab08e"/>
+
+        <!-- Girl's hair fringe -->
+        <path d="M185 102 Q180 72 211 72 Q241 74 241 104
+                 L231 93 Q214 102 193 91Z"
+              fill="#493044"/>
+
+        <!-- Girl's features -->
+        <path d="M199 111 Q203 116 207 111"
+              stroke="#583a43" stroke-width="2" fill="none"
+              stroke-linecap="round"/>
+        <path d="M217 111 Q221 116 225 111"
+              stroke="#583a43" stroke-width="2" fill="none"
+              stroke-linecap="round"/>
+        <path d="M207 124 Q213 131 220 123"
+              stroke="#c44c68" stroke-width="2.5" fill="none"
+              stroke-linecap="round"/>
+
+        <!-- Boy's body -->
+        <path d="M65 166 Q89 148 117 166 L133 237
+                 L47 237Z"
+              fill="#66b9b3"/>
+
+        <!-- Boy's neck -->
+        <rect x="79" y="127" width="25" height="32"
+              rx="9" fill="#bd805e"/>
+
+        <!-- Boy's face -->
+        <ellipse cx="92" cy="105" rx="31" ry="36"
+                 fill="#c98a67"/>
+
+        <!-- Sikh turban -->
+        <path d="M61 101 Q52 60 90 55 Q125 56 123 100
+                 L113 92 L107 80 L94 89 L81 78 L70 92Z"
+              fill="#3264b8"/>
+        <path d="M61 89 Q90 101 122 87"
+              stroke="#86aef4" stroke-width="5" fill="none"/>
+        <path d="M73 65 Q95 72 113 64"
+              stroke="#86aef4" stroke-width="4" fill="none"/>
+
+        <!-- Boy's face -->
+        <path d="M79 106 Q83 111 87 106"
+              stroke="#55372f" stroke-width="2" fill="none"
+              stroke-linecap="round"/>
+        <path d="M98 106 Q102 111 106 106"
+              stroke="#55372f" stroke-width="2" fill="none"
+              stroke-linecap="round"/>
+
+        <!-- Beard -->
+        <path d="M65 116 Q64 142 91 150 Q117 142 119 116
+                 Q108 128 92 126 Q76 128 65 116Z"
+              fill="#493044"/>
+
+        <!-- Boy's arm reaching out -->
+        <path d="M108 166 Q136 178 152 154"
+              stroke="#c98a67" stroke-width="14" fill="none"
+              stroke-linecap="round"/>
+
+        <!-- Rose -->
+        <path d="M151 153 L162 136"
+              stroke="#438d64" stroke-width="3"/>
+        <circle cx="162" cy="133" r="7" fill="#ff3f76"/>
+        <circle cx="156" cy="130" r="5" fill="#ff75a0"/>
+        <circle cx="166" cy="127" r="5" fill="#e92e64"/>
+        <path d="M157 145 L151 139 L159 142"
+              fill="#55a878"/>
+
+        <!-- Ground -->
+        <ellipse cx="157" cy="240" rx="115" ry="8"
+                 fill="#e99abb" opacity=".35"/>
+
+        <text x="160" y="258" text-anchor="middle"
+              font-size="13" fill="#bd5480"
+              font-family="Poppins, sans-serif">
+            A little love story 💕
+        </text>
+    </svg>
+
+    <p class="subtitle">
+        💌 You have a message from someone<br>
+        who thinks you're pretty special.
+    </p>
+
+    <button class="heart-button" onclick="openSurprise()"
+            aria-label="Open your surprise">♥</button>
+
+    <p style="font-size:12px; color:#b65b82">
+        Tap the heart, Jass 💗
+    </p>
+
+</section>
+
+
+<!-- SCREEN 2: CONFETTI AND THE ENVELOPE -->
+
+<section class="screen" id="surprise">
+
+    <div style="font-size:50px">🎉 💖 🎉</div>
+
+    <h1>It's for you!</h1>
+
+    <p class="subtitle">
+        A tiny surprise for a very special girl. 🎀
+    </p>
+
+    <div class="card" onclick="openLetter()">
+        <div class="bow">🎀💌🎀</div>
+        <h2>A little letter</h2>
+        <p>
+            Someone has been keeping a little secret... 💗
+        </p>
+        <p class="tap">✨ Tap to open ✨</p>
+        <div style="font-size:32px">💕</div>
+    </div>
+
+    <p class="footer">Made with love, just for Jass 💗</p>
+
+</section>
+
+
+<!-- SCREEN 3: THE CONFESSION -->
+
+<section class="screen" id="letterScreen">
+
+    <div class="letter">
+
+        <div style="font-size:32px; margin-bottom:8px">🎀💌🎀</div>
+
+        <h2>Dear Jass... ❤️</h2>
+
+        <div class="message">Honestly, Jass, I've been wanting to tell you this for a long time. ❤️ Somewhere along the way, you became really special to me. I love your cute, chubby self, the way you listen to all my bullshit without getting tired of me, and how talking to you can make even my worst days better. 🥹❤️
+
+I don't know exactly when I started catching feelings for you, but I know that you've become someone I genuinely care about. There's just something about you that makes me smile without even trying.
+
+I don't want to keep these feelings to myself anymore, so I just wanna ask you something from my heart...</div>
+
+        <div class="question">
+            Jass, would you like to be mine? 🥹❤️
+        </div>
+
+        <div class="answer-area" id="answerArea">
+            <button class="btn primary" id="yes"
+                    onclick="sayYes()">YES 💖</button>
+
+            <button class="btn" id="no"
+                    onmouseenter="moveNo()"
+                    ontouchstart="moveNo()"
+                    onclick="moveNo()">NO 🙈</button>
+        </div>
+
+        <p style="font-size:12px; margin-top:18px; color:#bd7291">
+            Choose wisely, Jass... 🥺💕
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- SCREEN 4: SHE SAID YES -->
+
+<section class="screen" id="happy">
+
+    <div class="final-heart">💖</div>
+
+    <h1>YOU SAID YES!!</h1>
+
+    <p style="font-size:20px; font-weight:600">
+        JASSSSS!! 😭💕
+    </p>
+
+    <div class="card" style="cursor:default">
+        <div style="font-size:42px">🥹💗🫶🏻</div>
+
+        <h2>You've made me so happy!</h2>
+
+        <p style="line-height:1.9">
+            If I could ask for one thing right now,
+            it would be to keep making you smile. ❤️
+
+            <br><br>
+
+            Thank you for being you, Jass.
+            Here's to our little love story. 🎀
+
+            <br><br>
+
+            <strong>Yours, hopefully forever. 💌</strong>
+        </p>
+    </div>
+
+    <p class="footer">This is only the beginning... 💗</p>
+
+</section>
+
+
+<script>
+
+// Create falling hearts
+const heartSymbols = ["💗", "💕", "💖", "💘", "❤️", "🌸"];
+
+function createHeart() {
+    const heart = document.createElement("div");
+
+    heart.className = "falling-heart";
+    heart.textContent =
+        heartSymbols[Math.floor(Math.random() * heartSymbols.length)];
+
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = (14 + Math.random() * 20) + "px";
+    heart.style.animationDuration = (4 + Math.random() * 5) + "s";
+
+    document.body.appendChild(heart);
+
+    setTimeout(() => heart.remove(), 9500);
+}
+
+setInterval(createHeart, 350);
+
+
+// Change screens
+function showScreen(id) {
+    document.querySelectorAll(".screen").forEach(screen => {
+        screen.classList.remove("active");
+    });
+
+    document.getElementById(id).classList.add("active");
+
+    window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+
+// Confetti explosion
+function confettiBurst() {
+    const colors = [
+        "#ff477e", "#ff9ec4", "#ffd166",
+        "#ffffff", "#d63384", "#c77dff"
+    ];
+
+    for (let i = 0; i < 100; i++) {
+        const piece = document.createElement("div");
+
+        piece.className = "confetti";
+        piece.style.left = Math.random() * 100 + "vw";
+        piece.style.width = (6 + Math.random() * 8) + "px";
+        piece.style.height = (8 + Math.random() * 12) + "px";
+        piece.style.background =
+            colors[Math.floor(Math.random() * colors.length)];
+
+        piece.style.animationDuration = (1.5 + Math.random() * 2) + "s";
+
+        document.body.appendChild(piece);
+
+        setTimeout(() => piece.remove(), 4000);
+    }
+}
+
+
+// Heart button
+function openSurprise() {
+    confettiBurst();
+    showScreen("surprise");
+}
+
+
+// Open letter
+function openLetter() {
+    showScreen("letterScreen");
+}
+
+
+// Make the NO button escape
+function moveNo() {
+    const no = document.getElementById("no");
+
+    // Move it into a fixed position so it can escape anywhere
+    if (no.style.position !== "fixed") {
+        no.style.position = "fixed";
+    }
+
+    const padding = 15;
+
+    const maxX = Math.max(
+        padding,
+        window.innerWidth - no.offsetWidth - padding
+    );
+
+    const maxY = Math.max(
+        padding,
+        window.innerHeight - no.offsetHeight - padding
+    );
+
+    const x = padding + Math.random() * (maxX - padding);
+    const y = padding + Math.random() * (maxY - padding);
+
+    no.style.left = x + "px";
+    no.style.top = y + "px";
+}
+
+
+// YES button
+function sayYes() {
+    confettiBurst();
+    showScreen("happy");
+
+    // A little extra celebration
+    setTimeout(confettiBurst, 600);
+}
+
+</script>
+
+</body>
+</html>
